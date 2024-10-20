@@ -1,0 +1,24 @@
+# ---------- DELETE - /settlementDeeds/:id ----------
+delete:
+  summary: Delete settlement deed by ID
+  tags: [settlementDeeds]
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: deleteSettlementId
+      in: path
+      description: ID of the settlement deed
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SettlementDeedModel'
+    '404':
+      description: Settlement deed not found
+    '500':
+      description: Internal Server Error

@@ -1,0 +1,59 @@
+# ---------- GET - /settlementDeeds ----------
+get:
+  summary: Get list of settlement deeds
+  tags: [settlementDeeds]
+  security:
+    - bearerAuth: []
+  parameters:
+    - in: query
+      name: pageNumber
+      schema:
+        type: integer
+        default: 1
+      description: Page number
+    - in: query
+      name: pageSize
+      schema:
+        type: integer
+        default: 10
+      description: Number of items per page
+    - in: query
+      name: sortField
+      schema:
+        type: string
+        default: 'id'
+      description: Sort field
+    - in: query
+      name: sortOrder
+      schema:
+        type: string
+        default: 'asc'
+      description: Sort order
+    - in: query
+      name: filters
+      schema:
+        type: object
+        description: Filter options
+        properties:
+          prax_efarm:
+            type: string
+            description: Filter by prax_efarm
+      example:
+        filters:
+          prax_efarm: "test2"
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SettlementDeedModel'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/ServerError'

@@ -1,0 +1,34 @@
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+ 
+stages:
+  - build
+  - deploy
+
+api:build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build -t "$IMAGE" .
+    - docker push "$IMAGE"
+  when: always
+  tags:
+    - shared-cli
+
+dev:deploy:
+  stage: deploy
+  when: manual
+  tags:
+    - shared-web
+  script:
+    - set -e
+    - RESPONSE=$(curl -X POST "$PORTAINER_WEBHOOK" -w "\n%{http_code}" -s)
+    - HTTP_STATUS=$(echo "$RESPONSE" | tail -n 1)
+    - echo "$RESPONSE"
+    - if [[ $HTTP_STATUS -ne 204 ]] && [[ $HTTP_STATUS -ne 200 ]]; then exit 1; fi
+  environment:
+    name: dev-server

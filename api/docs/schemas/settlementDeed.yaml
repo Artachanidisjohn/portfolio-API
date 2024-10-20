@@ -1,0 +1,91 @@
+title: SettlementDeed
+type: object
+properties:
+    prax_takt:
+      type: string
+      maxLength: 255
+    prax_efarm:
+      type: string
+      maxLength: 255
+    dhmot_koin:
+      type: string
+      maxLength: 50
+    kaek:
+      type: string
+      maxLength: 20
+    o_t:
+      type: string
+      maxLength: 255
+    xrhsh_gps:
+      type: string
+      maxLength: 255
+    xrhsh_pm:
+      type: string
+      maxLength: 50
+    idiokthths:
+      type: string
+      maxLength: 255
+    pososto_id:
+      type: string
+      maxLength: 255
+    emb_geot:
+      type: number
+    embad_kthm:
+      type: number
+    yp_ap_dhm:
+      type: string
+      maxLength: 200
+    ar_idiokt:
+      type: string
+      maxLength: 255
+    yp_ap_par:
+      type: string
+      maxLength: 255
+    ar_id_par:
+      type: string
+      maxLength: 255
+    apoz_thike:
+      type: string
+      maxLength: 50
+    anal_yp_tr:
+      type: string
+      maxLength: 255
+    ar_id_tr:
+      type: string
+      maxLength: 255
+    exofl_tm:
+      type: string
+      maxLength: 255
+    trop_apoz:
+      type: string
+      maxLength: 255
+    yp_tm_apoz:
+      type: string
+      maxLength: 50
+    diam_apo_x:
+      type: string
+      maxLength: 50
+    mh_apo_dia:
+      type: string
+      maxLength: 50
+    ol_arsh_ap:
+      type: string
+      maxLength: 50
+    met_oik_xo:
+      type: string
+      maxLength: 255
+    dikas_arsh:
+      type: string
+      maxLength: 255
+    dika_ar_tm:
+      type: string
+      maxLength: 255
+    telik_apot:
+      type: string
+      maxLength: 255
+    parathr:
+      type: string
+      maxLength: 200
+    pol_enot:
+      type: string
+      maxLength: 50

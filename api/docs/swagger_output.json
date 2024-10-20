@@ -1,0 +1,36 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3100",
+  "basePath": "/api/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/records/{list}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "list",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

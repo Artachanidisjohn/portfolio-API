@@ -1,0 +1,59 @@
+# ---------- PUT - /settlementDeeds/{id} ----------
+put:
+  summary: Update a Settlement Deed
+  security:
+    - bearerAuth: []
+  tags: [settlementDeeds]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/SettlementDeed'
+        examples:
+          example_name:
+            value:
+              prax_takt: "Test 1"
+              prax_efarm: "Test 1"
+              dhmot_koin: "Test 1"
+              kaek: "Test 1"
+              o_t: "Test 1"
+              xrhsh_gps: "Test 1"
+              xrhsh_pm: "Test 1"
+              idiokthths: "Test 1"
+              pososto_id: "Test 1"
+              emb_geot: 123.45
+              embad_kthm: 67.89
+              yp_ap_dhm: "Test 1"
+              ar_idiokt: "Test 1"
+              yp_ap_par: "Test 1"
+              ar_id_par: "Test 1"
+              apoz_thike: "Test 1"
+              anal_yp_tr: "Test 1"
+              ar_id_tr: "Test 1"
+              exofl_tm: "Test 1"
+              trop_apoz: "Test 1"
+              yp_tm_apoz: "Test 1"
+              diam_apo_x: "Test 1"
+              mh_apo_dia: "Test 1"
+              ol_arsh_ap: "Test 1"
+              met_oik_xo: "Test 1"
+              dikas_arsh: "Test 1"
+              dika_ar_tm: "Test 1"
+              telik_apot: "Test 1"
+              parathr: "Test 1"
+              pol_enot: "Test 1"
+  responses:
+    '200':
+      $ref: '#/components/responses/Updated'
+    '401':
+      $ref: '#/components/responses/UnauthorizedError'
+    '500':
+      $ref: '#/components/responses/ServerError'

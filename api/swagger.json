@@ -1,0 +1,45 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Kadik API",
+        "version": "1.0.0",
+        "description": "API to display kaek for a specific kadik"
+    },
+    "host": "localhost:3100",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/kadik/{kadik}": {
+            "get": {
+                "summary": "Get a Kaek by Kadik",
+                "description": "Returns a Kaek for a specific Kadik",
+                "parameters": [
+                    {
+                        "name": "kadik",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A single Kaek",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "kadik": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Kadik not found"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+version: "3.8"
+
+networks:
+  web:
+    external: true
+volumes:
+  postgis_data:
+
+services:
+  landify-api:
+    container_name: ${CONTAINER_NAME}
+    image: ${IMAGE_NAME}
+    working_dir: ${WORKDIR}
+    entrypoint: ["bash", "${ENTRYPOINT_FILE}"]
+    command: ${COMMAND}
+    volumes:
+      - ${CONTAINER_VOLUME}
+    expose:
+      - ${NODE_PORT}
+    restart: always
+    networks:
+      - web
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${CONTAINER_NAME}.rule=Host(`${MAIN_DOMAIN}`)
+      - traefik.http.routers.${CONTAINER_NAME}.tls=true
+      - traefik.http.routers.${CONTAINER_NAME}.tls.certresolver=lets-encrypt
+      - traefik.http.services.${CONTAINER_NAME}.loadbalancer.server.port=${NODE_PORT}
+    environment:
+      #set NODE_ENV='productions' when deploying to production
+      NODE_ENV: ${NODE_ENV}
+      #jwt
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      #production
+      API_VERSION: ${API_VERSION}
+      IMAGES_PATH: ${IMAGES_PATH}
+      NODE_PORT: ${NODE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      STIMULSOFT_PORT: ${STIMULSOFT_PORT}
+      DESCRIPTION: ${DESCRIPTION}
+      UI_PATH: ${UI_PATH}
+      #development
+      DEV_API_VERSION: ${DEV_API_VERSION}
+      DEV_IMAGES_PATH: ${DEV_IMAGES_PATH}
+      DEV_NODE_PORT: ${DEV_NODE_PORT}
+      DEV_DATABASE_NAME: ${DEV_DATABASE_NAME}
+      DEV_USERNAME: ${DEV_USERNAME}
+      DEV_PASSWORD: ${DEV_PASSWORD}
+      DEV_DB_HOST: ${DEV_DB_HOST}
+      DEV_DB_PORT: ${DEV_DB_PORT}
+      DEV_STIMULSOFT_PORT: ${DEV_STIMULSOFT_PORT}
+      DEV_DESCRIPTION: ${DEV_DESCRIPTION}
+      DEV_UI_PATH: ${DEV_UI_PATH}
+      #api email settings
+      API_EMAIL_USER: ${API_EMAIL_USER}
+      API_EMAIL_PASSWORD: ${API_EMAIL_PASSWORD}
+      API_EMAIL_SEND_TO: ${API_EMAIL_SEND_TO}
+      API_EMAIL_SMTP_HOST: ${API_EMAIL_SMTP_HOST}
+      API_EMAIL_SMTP_PORT: ${API_EMAIL_SMTP_PORT}
+      API_EMAIL_SMTP_SECURE: ${API_EMAIL_SMTP_SECURE}
+
+  landify-db:
+    container_name: ${CONTAINER_NAME}-db
+    hostname: ${DB_HOST}
+    image: gitlab.gbksoft.space:5050/pub/images/postgis:12
+    restart: always
+    networks:
+      - web
+    labels:
+      - traefik.enable=false
+    volumes:
+       - postgis_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
