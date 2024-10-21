@@ -1,0 +1,27 @@
+stages:
+  - build
+  - deploy
+
+api:build:
+  stage: build
+  image: node:12
+  script:
+    - npm install
+    - npm run build
+  when: always
+  tags:
+    - shared-cli
+
+dev:deploy:
+  stage: deploy
+  when: manual
+  tags:
+    - shared-web
+  script:
+    - set -e
+    - RESPONSE=$(curl -X POST "$PORTAINER_WEBHOOK" -w "\n%{http_code}" -s)
+    - HTTP_STATUS=$(echo "$RESPONSE" | tail -n 1)
+    - echo "$RESPONSE"
+    - if [[ $HTTP_STATUS -ne 204 ]] && [[ $HTTP_STATUS -ne 200 ]]; then exit 1; fi
+  environment:
+    name: dev-server
