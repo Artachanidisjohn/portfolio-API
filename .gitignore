@@ -1,0 +1,30 @@
+# File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
+
+# Created by https://www.gitignore.io/api/visualstudiocode,windows,node
+# Edit at https://www.gitignore.io/?templates=visualstudiocode,windows,node
+
+# Αποκλείουμε μόνο τα περιττά logs και runtime αρχεία
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+pids
+*.pid
+*.seed
+*.pid.lock
+node_modules/
+coverage
+build/Release
+
+# Εξαίρεση από το VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Environment variables
+.env
+.env.test
